@@ -27,15 +27,7 @@ public class HomeNavigationActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.Favorite:
-                        Helper.replaceFragmentS(getSupportFragmentManager(),R.id.home_fragment_viewer,new MyStatusFragment());
-                        break;
-
-                    case R.id.notification:
-                        Helper.replaceFragmentS(getSupportFragmentManager(),R.id.home_fragment_viewer,new MyStatusFragment());
-                        break;
-
-                    case R.id.info:
-                        Helper.replaceFragmentS(getSupportFragmentManager(),R.id.home_fragment_viewer,new MyStatusFragment());
+                        Helper.replaceFragmentS(getSupportFragmentManager(),R.id.home_fragment_viewer,new FavoriteFragment());
                         break;
 
                     case R.id.challenges:
@@ -51,5 +43,8 @@ public class HomeNavigationActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -106,6 +106,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/huawei"
                 android:layout_margin="@dimen/_10sdp"
                 android:background="#27FFFFFF"
                 app:layout_columnWeight="1"
@@ -118,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Activity"
-                    android:textColor="@color/white"
+                    android:textColor="#9F0404"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +130,7 @@
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_accessibility_24"
+                    android:src="@drawable/accessibility_red"
                     app:layout_constraintBottom_toTopOf="@+id/textView6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

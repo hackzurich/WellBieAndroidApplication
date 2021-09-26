@@ -1,11 +1,16 @@
 package social.wellbe.wellbeapplication.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
@@ -21,46 +26,66 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import social.wellbe.wellbeapplication.R;
-import social.wellbe.wellbeapplication.model.User;
-import social.wellbe.wellbeapplication.model.UserData;
 import social.wellbe.wellbeapplication.api.ApiClient;
 import social.wellbe.wellbeapplication.api.ApiInterface;
+import social.wellbe.wellbeapplication.model.User;
+import social.wellbe.wellbeapplication.model.UserData;
 
 public class SignUpActivity extends AppCompatActivity {
+    String json;
+    RequestBody formBody;
+    Request request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        ApiInterface api= ApiClient.getRetrofit().create(ApiInterface.class);
 
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        String json=new Gson().toJson(new UserData(new User("mahmoudhesham00@gmail.com","123456789",true)));
-        Log.d("my json",json);
-        RequestBody formBody = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url("https://vellbie-server-staging.herokuapp.com/api/signup")
-                .post(formBody)
-                .build();
+        EditText email = findViewById(R.id.signup_user_name);
+        EditText pass = findViewById(R.id.signup_password);
+        CheckBox checkBox = findViewById(R.id.checkBox);
+
 
         findViewById(R.id.signup_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                json = new Gson().toJson(new UserData(new User(email.getText().toString(), pass.getText().toString(), checkBox.isChecked())));
+                formBody = RequestBody.create(JSON, json);
+                request = new Request.Builder()
+                        .url("https://vellbie-server-staging.herokuapp.com/api/signup")
+                        .post(formBody)
+                        .build();
 
-                   client.newCall(request).enqueue(new Callback() {
-                       @Override
-                       public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                           Log.d("fail",call.toString());
-                       }
+                if (email.getText().toString().length() <= 0 || pass.getText().toString().length() < 8) {
+                    Toast.makeText(SignUpActivity.this, "Check your email & password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        Log.d("fail", call.toString());
+                    }
 
-                       @Override
-                       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                           Log.d("done",response.toString());
-                           startActivity(new Intent(getBaseContext(),HomeNavigationActivity.class));
-                           finish();
-                       }
-                   });
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        Log.d("done", response.body().string());
+                        if (response.code() >= 400) {
+
+                            SignUpActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(SignUpActivity.this, "Check your email & password", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            return;
+                        }
+                        startActivity(new Intent(getBaseContext(), HomeNavigationActivity.class));
+                        finish();
+                    }
+                });
             }
         });
 

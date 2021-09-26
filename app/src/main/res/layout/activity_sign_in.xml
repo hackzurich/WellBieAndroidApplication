@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_60sdp"
-        android:background="@drawable/buttom_1"
         android:text="LOG IN"
         android:layout_marginTop="@dimen/_10sdp"
         android:textColor="#121212"

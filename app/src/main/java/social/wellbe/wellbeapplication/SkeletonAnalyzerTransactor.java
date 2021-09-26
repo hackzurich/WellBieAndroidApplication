@@ -1,6 +1,7 @@
 package social.wellbe.wellbeapplication;
 
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.huawei.hms.mlsdk.common.MLAnalyzer;
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class SkeletonAnalyzerTransactor implements MLAnalyzer.MLTransactor<MLSkeleton> {
     MLSkeletonAnalyzer analyzer = MLSkeletonAnalyzerFactory.getInstance().getSkeletonAnalyzer();
+    List<MLSkeleton> temp;
+
     @Override
     public void transactResult(MLAnalyzer.Result<MLSkeleton> results) {
         SparseArray<MLSkeleton> items = results.getAnalyseList();
@@ -22,10 +25,10 @@ public class SkeletonAnalyzerTransactor implements MLAnalyzer.MLTransactor<MLSke
         List<MLSkeleton> resultsList = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             resultsList.add(items.valueAt(i));
+            Log.d("Mahmoud",items.valueAt(i).toString());
         }
         // Calculate the similarity between the detection result and template.
         // templateList is a list of skeleton templates. Templates can be generated through static image detection. The skeleton detection service supports single-person and multi-person template matching.
-        //float result = analyzer.caluteSimilarity(resultsList, templateList);
     }
     @Override
     public void destroy() {

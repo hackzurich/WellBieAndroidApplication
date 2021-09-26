@@ -63,4 +63,7 @@ dependencies {
     implementation 'com.huawei.hms:ml-computer-vision-yoga-model:2.0.4.300'
     implementation 'com.huawei.hms:ml-computer-vision-base:2.0.3.300'
 
+    implementation 'com.karumi:dexter:6.2.3'
+
+
 }
