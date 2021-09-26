@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Favorite"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="favorite" />
+
+    <item android:id="@+id/notification"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="Notifications"/>
+
+    <item android:id="@+id/info"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="Info"/>
+
+    <item android:id="@+id/challenges"
+        android:icon="@drawable/ic_baseline_emoji_events_24"
+        android:title="Challenges"/>
+
+    <item android:id="@+id/my_status"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="My status"/>
+
+</menu>
